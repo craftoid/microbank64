@@ -9,6 +9,7 @@
 
 // NOTE: all dimensions based on estimates
 // TODO: take measueres
+// TODO: improve switches
 
 
 // board dimensions
@@ -16,7 +17,7 @@
 width = 110;            // width of the board   
 height = width / 2;     // height of the board
 depth = 1;              // depth of a single layer of wood
-spacing = 0.5;          // spacing between the layers (for visualization)
+spacing = .5;          // spacing between the layers (for visualization)
 d = depth + spacing;    // distance between layers
 rounding = 5;           // radius of rounded corners
 
@@ -37,8 +38,8 @@ border = (width - (bulbs - 1) * dlamps) / 2;
 
 // wood colors
 wood = [
-    [0.75, 0.5, 0.0],
-    [0.7, 0.4, 0.0]
+    [0.7, 0.4, 0.0, 1.0],
+    [0.75, 0.5, 0.0, 1.0]
 ];
 
 // lamp colors
@@ -70,12 +71,12 @@ module layers() {
 
     // layer 2
     translate([0, 0, 1 * d])
-        color(wood[1])
+        color(wood[0])
             rounded_layer();
-      
+    
     // layer 3    
     translate([0, 0, 2 * d])
-        color(wood[0])
+        color(wood[1])
             switch_layer();
     
     // layer 4 
@@ -85,28 +86,13 @@ module layers() {
   
     // layer 5 
     translate([0, 0, 4 * d])
-        color(wood[0])
-            rounded_layer();
-}
-
-// square layer
-module layer() {
-    linear_extrude(depth)
-        square([width, height], center=true);
-}
-
-// layer with rounded corners
-module rounded_layer() {
-    linear_extrude(depth)
-        rounded_rect(width, height, rounding);
-}
-
-// layer with switches added
-module switch_layer() {
-    difference() {
-        rounded_layer(width, height, depth, rounding);
-        // TODO: subtract switches from the current layer
-    }
+        color(wood[1])
+            switch_layer();
+         // show the cut out template
+         //%cutout_layer();
+            
+    // cut out
+    
 }
 
 module chandelier() {
@@ -171,3 +157,62 @@ module rounded_rect(width, height, rounding = 10) {
         square([width - 2 * rounding, height - 2 * rounding], center=true);
   };
 }
+
+
+// square layer
+module layer() {
+    linear_extrude(depth)
+        square([width, height], center=true);
+}
+
+// layer with rounded corners
+module rounded_layer() {
+    linear_extrude(depth)
+        rounded_rect(width, height, rounding);
+}
+
+// layer with switches added
+module switch_layer() {
+    difference() {
+        rounded_layer(width, height, depth, rounding);
+        cutout_layer(width, height, depth, rounding);
+    }
+}
+
+// make space for the switches
+module cutout_layer() {
+    translate([ - dlamps *  (bulbs - 1 ) / 2 , 0, 0])
+    for (i=[0:bulbs-1]) {
+        translate([i* dlamps, 0, 0])
+            cutout_switch();
+    }
+}
+
+
+module cutout_switch() {
+    
+    h = 10;             // height of the cut out
+    gap = 0.5;            // gap between stuff
+    
+    ds = h- 2 * gap;    // switch length
+    ws = 1;             // switch width
+    cs = ds * 0.2;      // cube width
+
+    aspect = 1.25;      // aspect ratio of the cutout square
+    
+    translate([0, -height/2, 0])
+        difference() {
+            cube([h, 2 * aspect * h, h],  center=true);
+            translate([0, cs + ws/2 + gap, 0])
+                cube([ds, ws, h], center=true);
+            translate([ds/2 - cs/2, cs/2, 0])
+                cube([cs, cs, h], center=true);
+            translate([-ds/2 + cs/2, cs/2, 0])
+                cube([cs, cs, h], center=true);
+            
+        };
+}
+
+
+
+
