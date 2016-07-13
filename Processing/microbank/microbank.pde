@@ -43,7 +43,8 @@ Sprite[] sprite = {};
 void setup() 
 {
 
-  size(2048, 1536); zoom = 1.0; // HIRES
+  fullScreen(2); zoom = 1.0;
+  // size(2048, 1536); zoom = 1.0;       // HIRES
   // size(1024, 768); zoom = 0.5;     // LORES (development only)
 
   // connect to OSC
