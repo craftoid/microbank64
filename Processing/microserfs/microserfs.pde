@@ -72,7 +72,7 @@ void setup()
     for (int j = 0; j < state.length; j++) {
 
       // load the image
-      String filename = name[i] + "-" + state[j] + ".gif";
+      String filename = name[i] + "-" + state[j] + ".png";
       println("Loading " + filename + " ...");
       PImage img = loadImage(filename);
 
@@ -92,7 +92,7 @@ void setup()
 
 void draw() {
 
-  background(255);
+  background(80, 80, 90);
   
   showPortraits();
 
@@ -143,7 +143,7 @@ void showPortraits() {
 
       // fat pulsating inner border (gray to black)
       float f1 = 0.5 + 0.5 * sin(frameCount / 10.0);
-      color c1 = lerpColor(color(100), color(200), f1);
+      color c1 = lerpColor(color(100, 100, 110), color(255), f1);
       stroke(c1);
       strokeWeight(bw3);
       rect(x + bw2, y + bw2, w - 2 * bw2 - 1, h - 2 * bw2 - 1);
@@ -153,7 +153,7 @@ void showPortraits() {
 
       // fat pulsating inner border (red to black)
       float f2 = 0.5 + 0.5 * sin(frameCount / 10.0);
-      color c2 = lerpColor(color(100, 0, 0), color(200, 100, 100), f2);
+      color c2 = lerpColor(color(255, 100, 100), color(255), f2);
       stroke(c2);
       strokeWeight(bw3);
       rect(x + bw2, y + bw2, w - 2 * bw2 - 1, h - 2 * bw2 - 1);
