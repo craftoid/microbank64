@@ -65,7 +65,8 @@ int[] select = new int[sprite.length];
 void setup() 
 {
 
-  size(1280, 800);
+  //size(1280, 800);
+  fullScreen(1);
 
   // load all the portraits
   for (int i = 0; i < name.length; i++) {
