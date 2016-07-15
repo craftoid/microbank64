@@ -33,15 +33,13 @@ color[] palette = {
   color(200, 200, 200)
 };
 
-// dollhouse image
+// microbank
 PImage bankImage;
 
-
 // sprites
-Sprite[] sprite = {};
+PImage spriteSheet;
 
-void setup() 
-{
+void setup() {
 
   fullScreen(2); zoom = 1.0;
   // size(2048, 1536); zoom = 1.0;       // HIRES
@@ -54,6 +52,9 @@ void setup()
   // load sprites and images
   bankImage = loadImage("microbank.gif");
   bankImage = scalePixels(bankImage, 3);
+  
+  spriteSheet = loadImage("spritesheet.png");
+  setupSprites();  
 
 }
 
