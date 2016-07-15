@@ -10,11 +10,18 @@ Room elevator = new ElevatorRoom();
 Room vault = new Vault();
 
 // other rooms
-Room elevator2 = new ElevatorRoom2();
 Room kitchen = new Kitchen();
 Room bathroom = new Bathroom();
 Room attic = new Attic();
 Room waitinghall = new Waitinghall();
+
+Room elevator2 = new ElevatorRoom2();
+Room elevator3 = new ElevatorRoom3();
+Room elevator4 = new ElevatorRoom4();
+
+Room staircase1 = new Staircase1();
+Room staircase2 = new Staircase2();
+Room balcony = new Balcony();
 
 // rooms and sprites
 Room[] staffRoom = {
@@ -22,16 +29,21 @@ Room[] staffRoom = {
   revision, 
   consulting, 
   counter, 
-  vault,
+  vault, 
   elevator
 };
 
 Room[] publicRoom = {
-  elevator2,
+  elevator2, 
   kitchen, 
   bathroom, 
   attic, 
-  waitinghall 
+  waitinghall, 
+  elevator3, 
+  elevator4, 
+  staircase1, 
+  staircase2,
+  balcony
 };
 
 
@@ -45,20 +57,20 @@ abstract class Room {
   }
 
   void show() {
-    
+
     pushStyle();
     noFill();
-    
+
     // select outline color
-    if(this == selectedRoom) {
-       stroke(255, 0, 0, 200);
-       fill(255, 100, 100, 100);
-       strokeWeight(10);
+    if (this == selectedRoom) {
+      stroke(255, 0, 0, 200);
+      fill(255, 100, 100, 100);
+      strokeWeight(10);
     } else {
       stroke(100, 150);
       strokeWeight(8);
     }
-    
+
     drawOutline();
     popStyle();
   }
@@ -77,9 +89,6 @@ class Office extends Room {
 
   {
     name = "Büro";
-  }
-
-  Office() {    
     setOutline( 
       492, 194, 
       1048, 194, 
@@ -93,9 +102,6 @@ class Revision extends Room {
 
   {
     name = "Revision";
-  }
-
-  Revision() {
     setOutline(
       311, 383, 
       1048, 383, 
@@ -109,9 +115,6 @@ class Consulting extends Room {
 
   {
     name = "Beratung";
-  }
-
-  Consulting() {
     setOutline(
       311, 599, 
       1048, 599, 
@@ -125,9 +128,6 @@ class Counter extends Room {
 
   {
     name = "Schalter";
-  }
-
-  Counter() {
     setOutline(
       389, 815, 
       574, 815, 
@@ -141,9 +141,6 @@ class ElevatorRoom extends Room {
 
   {
     name = "Fahrstuhl Keller";
-  }
-
-  ElevatorRoom() {
     setOutline(
       1331, 1151, 
       1680, 1151, 
@@ -153,14 +150,10 @@ class ElevatorRoom extends Room {
   }
 }
 
-
 class ElevatorRoom2 extends Room {
 
   {
     name = "Fahrstuhl EG";
-  }
-
-  ElevatorRoom2() {
     setOutline(
       1331, 815, 
       1680, 815, 
@@ -170,14 +163,58 @@ class ElevatorRoom2 extends Room {
   }
 }
 
+class ElevatorRoom3 extends Room {
+  {
+    name = "Fahrstuhl 2. OG";
+    setOutline(
+      1068, 383, 
+      1313, 383, 
+      1313, 579, 
+      1068, 579
+      );
+  }
+}
+
+class ElevatorRoom4 extends Room {
+  {
+    name = "Fahrstuhl 3. OG";
+    setOutline(
+      1068, 194, 
+      1440, 194, 
+      1309, 363, 
+      1068, 363
+      );
+  }
+}
+
+class Staircase1 extends Room {
+  {
+    name = "Treppenhaus EG";
+    setOutline(
+      1068, 815, 
+      1310, 815, 
+      1310, 1131, 
+      1068, 1131
+      );
+  }
+}
+
+class Staircase2 extends Room {
+  {
+    name = "Treppenhaus 1. OG";
+    setOutline(
+      1068, 599, 
+      1312, 599, 
+      1312, 795, 
+      1068, 795
+      );
+  }
+}
 
 class Kitchen extends Room {
 
   {
     name = "Küche";
-  }
-
-  Kitchen() {
     setOutline(
       1331, 383, 
       1680, 383, 
@@ -191,9 +228,6 @@ class Bathroom extends Room {
 
   {
     name = "Bad";
-  }
-
-  Bathroom() {
     setOutline(
       1331, 599, 
       1680, 599, 
@@ -207,9 +241,6 @@ class Attic extends Room {
 
   {
     name = "Dachboden";
-  }
-
-  Attic() {
     setOutline(
       1505, 145, 
       1673, 363, 
@@ -218,15 +249,10 @@ class Attic extends Room {
   }
 }
 
-
-
 class Vault extends Room {
 
   {
     name = "Tresor";
-  }
-
-  Vault() {
     setOutline(
       384, 1151, 
       1310, 1151, 
@@ -239,9 +265,6 @@ class Vault extends Room {
 class Waitinghall extends Room {
   {
     name = "Waiting Room";
-  }
-
-  Waitinghall() {
     setOutline(
       593, 815, 
       1047, 815, 
@@ -251,32 +274,14 @@ class Waitinghall extends Room {
   }
 }
 
-class ElevatorRoom3 extends Room {
-  {
-    name = "Fahrstuhl 2. OG";
-  }
-}
-
-class ElevatorRoom4 extends Room {
-  {
-    name = "Fahrstuhl 3. OG";
-  }
-}
-
-class Staircase1 extends Room {
-  {
-    name = "Treppenhaus EG";
-  }
-}
-
-class Staircase2 extends Room {
-  {
-    name = "Treppenhaus 1. OG";
-  }
-}
-
 class Balcony extends Room {
   {
     name = "Balkon";
+    setOutline(
+      1697, 540, 
+      1768, 540, 
+      1768, 579, 
+      1698, 579
+      );
   }
 }
